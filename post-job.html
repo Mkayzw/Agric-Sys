@@ -1,0 +1,356 @@
+<<<<<<< HEAD
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post a Job - AgriConnect</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="font-sans text-text">
+    <header>
+        <nav class="fixed top-0 w-full bg-white shadow-default z-50">
+            <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+                <div class="text-2xl font-bold text-primary">
+                    <h1><a href="./index.html">AgriConnect</a></h1>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="./index.html" class="nav-link">Home</a>
+                    <a href="./index.html#services" class="nav-link">Services</a>
+                    <a href="./post-job.html" class="nav-link active">Post a Job</a>
+                    <a href="./find-work.html" class="nav-link">Find Work</a>
+                    <a href="./index.html#about" class="nav-link">About</a>
+                </div>
+                <div class="hidden md:flex space-x-4">
+                    <button onclick="window.location.href='./login.html'" class="btn-secondary">Login</button>
+                    <button onclick="window.location.href='./register.html'" class="btn-primary">Sign Up</button>
+                </div>
+                <button class="md:hidden text-2xl" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="pt-24 pb-16 bg-gray-50">
+        <section class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto bg-white rounded-lg shadow-default p-8">
+                <h1 class="text-3xl font-bold text-text mb-2">Post Your Job</h1>
+                <p class="text-text-light mb-8">Fill in the details below to post your agricultural service needs</p>
+                
+                <form id="jobPostForm" class="space-y-6">
+                    <div>
+                        <label for="jobTitle" class="block text-text font-medium mb-2">Job Title</label>
+                        <input type="text" id="jobTitle" name="jobTitle" required 
+                               placeholder="e.g., Grain Transportation Needed"
+                               class="input">
+                    </div>
+
+                    <div>
+                        <label for="serviceType" class="block text-text font-medium mb-2">Service Type</label>
+                        <select id="serviceType" name="serviceType" required class="select">
+                            <option value="">Select a service type</option>
+                            <option value="transport">Transportation</option>
+                            <option value="equipment">Equipment Rental</option>
+                            <option value="labor">Farm Labor</option>
+                            <option value="repair">Equipment Repair</option>
+                            <option value="irrigation">Irrigation Services</option>
+                            <option value="harvesting">Harvesting Services</option>
+                            <option value="storage">Storage Solutions</option>
+                            <option value="processing">Crop Processing</option>
+                            <option value="pest-control">Pest Control</option>
+                            <option value="consultancy">Agricultural Consultancy</option>
+                        </select>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="pickupLocation" class="block text-text font-medium mb-2">Pickup Location</label>
+                            <input type="text" id="pickupLocation" name="pickupLocation" required 
+                                   placeholder="Enter pickup address"
+                                   class="input">
+                        </div>
+                        <div>
+                            <label for="deliveryLocation" class="block text-text font-medium mb-2">Delivery Location</label>
+                            <input type="text" id="deliveryLocation" name="deliveryLocation" required 
+                                   placeholder="Enter delivery address"
+                                   class="input">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="startDate" class="block text-text font-medium mb-2">Start Date</label>
+                            <input type="date" id="startDate" name="startDate" required class="input">
+                        </div>
+                        <div>
+                            <label for="budget" class="block text-text font-medium mb-2">Budget</label>
+                            <div class="flex gap-2">
+                                <select id="budgetCurrency" class="select w-24">
+                                    <option value="USD">USD</option>
+                                    <option value="ZWL">ZWL</option>
+                                </select>
+                                <input type="number" id="budget" name="budget" min="0" step="0.01" required 
+                                       placeholder="Enter your budget"
+                                       class="input flex-1">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="description" class="block text-text font-medium mb-2">Job Description</label>
+                        <textarea id="description" name="description" rows="4" required 
+                                  placeholder="Describe your requirements in detail"
+                                  class="input resize-none"></textarea>
+                    </div>
+
+                    <div>
+                        <label for="requirements" class="block text-text font-medium mb-2">Special Requirements</label>
+                        <textarea id="requirements" name="requirements" rows="3" 
+                                  placeholder="Any special requirements or equipment needed"
+                                  class="input resize-none"></textarea>
+                    </div>
+
+                    <div class="flex justify-end gap-4 pt-4">
+                        <button type="button" onclick="window.location.href='./index.html'" class="btn-secondary">Cancel</button>
+                        <button type="submit" class="btn-primary">Post Job</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-text py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-4">About Us</h3>
+                    <p class="text-gray-300">Connecting farmers with reliable agricultural service providers across Zimbabwe.</p>
+                </div>
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="./index.html" class="text-gray-300 hover:text-primary">Home</a></li>
+                        <li><a href="./find-work.html" class="text-gray-300 hover:text-primary">Find Work</a></li>
+                        <li><a href="./post-job.html" class="text-gray-300 hover:text-primary">Post a Job</a></li>
+                        <li><a href="./index.html#how-it-works" class="text-gray-300 hover:text-primary">How It Works</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-4">Contact Us</h3>
+                    <ul class="space-y-2">
+                        <li class="text-gray-300">Email: info@agricsys.com</li>
+                        <li class="text-gray-300">Phone: +263 77 123 4567</li>
+                        <li class="text-gray-300">Address: 123 Farm Road, Harare</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-4">Follow Us</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-300 hover:text-primary">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-primary">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-primary">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-primary">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-300">&copy; 2024 AgricSys. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/post-job.js"></script>
+</body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post a Job - AgriConnect</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="font-sans text-text">
+    <header>
+        <nav class="fixed top-0 w-full bg-white shadow-default z-50">
+            <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+                <div class="text-2xl font-bold text-primary">
+                    <h1><a href="index.html">AgriConnect</a></h1>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="index.html#services" class="nav-link">Services</a>
+                    <a href="post-job.html" class="nav-link active">Post a Job</a>
+                    <a href="find-work.html" class="nav-link">Find Work</a>
+                    <a href="index.html#about" class="nav-link">About</a>
+                </div>
+                <div class="hidden md:flex space-x-4">
+                    <button class="btn-secondary">Login</button>
+                    <button class="btn-primary">Sign Up</button>
+                </div>
+                <button class="md:hidden text-2xl" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="pt-24 pb-16 bg-gray-50">
+        <section class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto bg-white rounded-lg shadow-default p-8">
+                <h1 class="text-3xl font-bold text-text mb-2">Post Your Job</h1>
+                <p class="text-text-light mb-8">Fill in the details below to post your agricultural service needs</p>
+                
+                <form id="jobPostForm" class="space-y-6">
+                    <div>
+                        <label for="jobTitle" class="block text-text font-medium mb-2">Job Title</label>
+                        <input type="text" id="jobTitle" name="jobTitle" required 
+                               placeholder="e.g., Grain Transportation Needed"
+                               class="input">
+                    </div>
+
+                    <div>
+                        <label for="serviceType" class="block text-text font-medium mb-2">Service Type</label>
+                        <select id="serviceType" name="serviceType" required class="select">
+                            <option value="">Select a service type</option>
+                            <option value="transport">Transportation</option>
+                            <option value="equipment">Equipment Rental</option>
+                            <option value="labor">Farm Labor</option>
+                            <option value="repair">Equipment Repair</option>
+                            <option value="irrigation">Irrigation Services</option>
+                            <option value="harvesting">Harvesting Services</option>
+                            <option value="storage">Storage Solutions</option>
+                            <option value="processing">Crop Processing</option>
+                            <option value="pest-control">Pest Control</option>
+                            <option value="consultancy">Agricultural Consultancy</option>
+                        </select>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="pickupLocation" class="block text-text font-medium mb-2">Pickup Location</label>
+                            <input type="text" id="pickupLocation" name="pickupLocation" required 
+                                   placeholder="Enter pickup address"
+                                   class="input">
+                        </div>
+                        <div>
+                            <label for="deliveryLocation" class="block text-text font-medium mb-2">Delivery Location</label>
+                            <input type="text" id="deliveryLocation" name="deliveryLocation" required 
+                                   placeholder="Enter delivery address"
+                                   class="input">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="startDate" class="block text-text font-medium mb-2">Start Date</label>
+                            <input type="date" id="startDate" name="startDate" required class="input">
+                        </div>
+                        <div>
+                            <label for="budget" class="block text-text font-medium mb-2">Budget</label>
+                            <div class="flex gap-2">
+                                <select id="budgetCurrency" class="select w-24">
+                                    <option value="USD">USD</option>
+                                    <option value="ZWL">ZWL</option>
+                                </select>
+                                <input type="number" id="budget" name="budget" min="0" step="0.01" required 
+                                       placeholder="Enter your budget"
+                                       class="input flex-1">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="description" class="block text-text font-medium mb-2">Job Description</label>
+                        <textarea id="description" name="description" rows="4" required 
+                                  placeholder="Describe your requirements in detail"
+                                  class="input resize-none"></textarea>
+                    </div>
+
+                    <div>
+                        <label for="requirements" class="block text-text font-medium mb-2">Special Requirements</label>
+                        <textarea id="requirements" name="requirements" rows="3" 
+                                  placeholder="Any special requirements or equipment needed"
+                                  class="input resize-none"></textarea>
+                    </div>
+
+                    <div class="flex justify-end gap-4 pt-4">
+                        <button type="button" onclick="window.location.href='index.html'" class="btn-secondary">Cancel</button>
+                        <button type="submit" class="btn-primary">Post Job</button>
+                    </div>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-text py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-4">About Us</h3>
+                    <p class="text-gray-300">Connecting farmers with reliable agricultural service providers across Zimbabwe.</p>
+                </div>
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html" class="text-gray-300 hover:text-primary">Home</a></li>
+                        <li><a href="find-work.html" class="text-gray-300 hover:text-primary">Find Work</a></li>
+                        <li><a href="post-job.html" class="text-gray-300 hover:text-primary">Post a Job</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-primary">How It Works</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-4">Contact Us</h3>
+                    <ul class="space-y-2">
+                        <li class="text-gray-300">Email: info@agricsys.com</li>
+                        <li class="text-gray-300">Phone: +263 77 123 4567</li>
+                        <li class="text-gray-300">Address: 123 Farm Road, Harare</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-white font-bold text-lg mb-4">Follow Us</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-300 hover:text-primary">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-primary">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-primary">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-primary">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-300">&copy; 2024 AgricSys. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+>>>>>>> 1d12cc19c4d3855a6b3534a8acfc9a5c99a896ea
+</html> 

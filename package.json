@@ -1,0 +1,35 @@
+{
+  "name": "agriconnect",
+  "version": "1.0.0",
+  "description": "Agricultural services marketplace",
+  "main": "src/backend/server.js",
+  "scripts": {
+    "start": "node src/backend/server.js",
+    "dev": "nodemon src/backend/server.js",
+    "generate-favicons": "node src/images/generate_favicons.js",
+    "build:css": "tailwindcss -i ./src/css/tailwind.css -o ./src/css/styles.css --watch"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^7.0.3",
+    "sharp": "^0.32.6",
+    "sharp-ico": "^0.1.5"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.17",
+    "nodemon": "^2.0.22",
+    "postcss": "^8.4.35",
+    "tailwindcss": "^3.4.1"
+  },
+  "keywords": [
+    "agriculture",
+    "marketplace",
+    "services"
+  ],
+  "author": "",
+  "license": "ISC"
+}

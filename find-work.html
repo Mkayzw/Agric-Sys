@@ -1,0 +1,886 @@
+<<<<<<< HEAD
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Work - AgriConnect</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="font-sans text-text">
+    <header>
+        <nav class="fixed top-0 w-full bg-white shadow-default z-50">
+            <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+                <div class="text-2xl font-bold text-primary">
+                    <h1><a href="index.html">AgriConnect</a></h1>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="index.html#services" class="nav-link">Services</a>
+                    <a href="post-job.html" class="nav-link">Post a Job</a>
+                    <a href="find-work.html" class="nav-link active">Find Work</a>
+                    <a href="index.html#about" class="nav-link">About</a>
+                </div>
+                <div class="hidden md:flex space-x-4">
+                    <button class="btn-secondary">Login</button>
+                    <button class="btn-primary">Sign Up</button>
+                </div>
+                <button class="md:hidden text-2xl" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="pt-24 pb-16 bg-gray-50">
+        <section class="container mx-auto px-4">
+            <div class="bg-white rounded-lg shadow-default p-6 mb-8">
+                <div class="space-y-6">
+                    <div class="flex flex-col md:flex-row gap-4">
+                        <div class="flex-1 relative">
+                            <input type="text" placeholder="Search jobs..." class="input pr-10">
+                            <button class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-primary">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="text-text-light">Currency:</span>
+                            <div class="flex rounded-md overflow-hidden border border-primary">
+                                <button class="px-4 py-2 bg-primary text-white" data-currency="USD">USD</button>
+                                <button class="px-4 py-2 hover:bg-gray-100" data-currency="ZWL">ZWL</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <select id="serviceFilter" class="select">
+                            <option value="">All Services</option>
+                            <option value="transport">Transportation</option>
+                            <option value="equipment">Equipment Rental</option>
+                            <option value="labor">Farm Labor</option>
+                            <option value="repair">Equipment Repair</option>
+                            <option value="irrigation">Irrigation Services</option>
+                            <option value="harvesting">Harvesting Services</option>
+                            <option value="storage">Storage Solutions</option>
+                            <option value="processing">Crop Processing</option>
+                            <option value="pest-control">Pest Control</option>
+                            <option value="consultancy">Agricultural Consultancy</option>
+                        </select>
+                        <select id="cropType" class="select">
+                            <option value="">All Crops</option>
+                            <option value="tobacco">Tobacco</option>
+                            <option value="maize">Maize</option>
+                            <option value="cotton">Cotton</option>
+                            <option value="wheat">Wheat</option>
+                            <option value="soybean">Soybean</option>
+                            <option value="sugarcane">Sugarcane</option>
+                            <option value="coffee">Coffee</option>
+                            <option value="tea">Tea</option>
+                            <option value="horticulture">Horticulture</option>
+                            <option value="groundnuts">Groundnuts</option>
+                        </select>
+                        <select id="locationFilter" class="select">
+                            <option value="">All Locations</option>
+                            <option value="mashonaland-central">Mashonaland Central</option>
+                            <option value="mashonaland-east">Mashonaland East</option>
+                            <option value="mashonaland-west">Mashonaland West</option>
+                            <option value="manicaland">Manicaland</option>
+                            <option value="midlands">Midlands</option>
+                            <option value="masvingo">Masvingo</option>
+                            <option value="matabeleland-north">Matabeleland North</option>
+                            <option value="matabeleland-south">Matabeleland South</option>
+                            <option value="harare">Harare</option>
+                            <option value="bulawayo">Bulawayo</option>
+                        </select>
+                        <select id="sortBy" class="select">
+                            <option value="recent">Most Recent</option>
+                            <option value="budget-high">Highest Budget</option>
+                            <option value="budget-low">Lowest Budget</option>
+                            <option value="deadline">Deadline</option>
+                            <option value="urgency">Urgency</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Example Job Cards -->
+                <div class="bg-white rounded-lg shadow-default p-6 hover:shadow-lg transition-shadow">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-semibold text-text">Maize Transportation Needed</h3>
+                        <div class="text-right">
+                            <div class="text-lg font-bold text-primary">$450</div>
+                            <div class="text-sm text-text-light">(ZWL 16,200)</div>
+                        </div>
+                    </div>
+                    <div class="flex gap-2 mb-4">
+                        <span class="px-2 py-1 bg-red-100 text-red-600 text-sm rounded-full">Urgent</span>
+                        <span class="px-2 py-1 bg-blue-100 text-blue-600 text-sm rounded-full">GMB Approved</span>
+                    </div>
+                    <div class="space-y-2 mb-4 text-text-light">
+                        <p class="flex items-center gap-2">
+                            <i class="fas fa-map-marker-alt text-primary"></i>
+                            From: Mazowe, To: Harare GMB
+                        </p>
+                        <p class="flex items-center gap-2">
+                            <i class="fas fa-calendar text-primary"></i>
+                            Start Date: Jan 30, 2024
+                        </p>
+                        <p class="flex items-center gap-2">
+                            <i class="fas fa-truck text-primary"></i>
+                            Service: Transportation
+                        </p>
+                        <p class="flex items-center gap-2">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            Rating: 4.8/5 (24 reviews)
+                        </p>
+                    </div>
+                    <p class="text-text mb-6">Need transportation for 15 tons of maize from Mazowe farm to Harare GMB depot. Must have appropriate vehicle and grain handling experience.</p>
+                    <div class="flex flex-wrap gap-3">
+                        <button class="btn-primary flex-1">Submit Bid</button>
+                        <button class="btn-secondary flex-1">View Details</button>
+                        <button class="btn-secondary w-12" onclick="openChat('job123')">
+                            <i class="fas fa-comments"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-default p-6 hover:shadow-lg transition-shadow">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-semibold text-text">Cotton Harvesting Team Required</h3>
+                        <div class="text-right">
+                            <div class="text-lg font-bold text-primary">$30/day</div>
+                            <div class="text-sm text-text-light">(ZWL 1,080/day)</div>
+                        </div>
+                    </div>
+                    <div class="flex gap-2 mb-4">
+                        <span class="px-2 py-1 bg-green-100 text-green-600 text-sm rounded-full">Long Term</span>
+                        <span class="px-2 py-1 bg-purple-100 text-purple-600 text-sm rounded-full">Accommodation</span>
+                    </div>
+                    <div class="space-y-2 mb-4 text-text-light">
+                        <p class="flex items-center gap-2">
+                            <i class="fas fa-map-marker-alt text-primary"></i>
+                            Location: Gokwe, Midlands
+                        </p>
+                        <p class="flex items-center gap-2">
+                            <i class="fas fa-calendar text-primary"></i>
+                            Start Date: Feb 15, 2024
+                        </p>
+                        <p class="flex items-center gap-2">
+                            <i class="fas fa-users text-primary"></i>
+                            Service: Farm Labor
+                        </p>
+                    </div>
+                    <p class="text-text mb-6">Seeking experienced cotton pickers for the harvest season. Previous cotton handling experience preferred. Accommodation and meals provided. 3-month contract.</p>
+                    <div class="flex flex-wrap gap-3">
+                        <button class="btn-primary flex-1">Submit Bid</button>
+                        <button class="btn-secondary flex-1">View Details</button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-default p-6 hover:shadow-lg transition-shadow">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-semibold text-text">Sugarcane Harvester Operator</h3>
+                        <div class="text-right">
+                            <div class="text-lg font-bold text-primary">$45/day</div>
+                            <div class="text-sm text-text-light">(ZWL 1,620/day)</div>
+                        </div>
+                    </div>
+                    <div class="flex gap-2 mb-4">
+                        <span class="px-2 py-1 bg-yellow-100 text-yellow-600 text-sm rounded-full">Skilled</span>
+                        <span class="px-2 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">Certificate Required</span>
+                    </div>
+                    <div class="space-y-2 mb-4 text-text-light">
+                        <p class="flex items-center gap-2">
+                            <i class="fas fa-map-marker-alt text-primary"></i>
+                            Location: Triangle, Masvingo
+                        </p>
+                        <p class="flex items-center gap-2">
+                            <i class="fas fa-calendar text-primary"></i>
+                            Start Date: Immediate
+                        </p>
+                        <p class="flex items-center gap-2">
+                            <i class="fas fa-tractor text-primary"></i>
+                            Service: Equipment Operation
+                        </p>
+                    </div>
+                    <p class="text-text mb-6">Experienced sugarcane harvester operator needed. Must have certification and minimum 2 years experience. Knowledge of Case IH equipment preferred.</p>
+                    <div class="flex flex-wrap gap-3">
+                        <button class="btn-primary flex-1">Submit Bid</button>
+                        <button class="btn-secondary flex-1">View Details</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-center mt-8 gap-2">
+                <button class="px-4 py-2 bg-primary text-white rounded-md">1</button>
+                <button class="px-4 py-2 hover:bg-gray-100 rounded-md">2</button>
+                <button class="px-4 py-2 hover:bg-gray-100 rounded-md">3</button>
+                <button class="px-4 py-2 hover:bg-gray-100 rounded-md flex items-center gap-1">
+                    Next <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white">
+        <div class="container mx-auto px-4 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">About AgriConnect</h3>
+                    <p class="text-gray-300">Connecting farmers with reliable service providers</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html#services" class="text-gray-300 hover:text-white transition-colors">Services</a></li>
+                        <li><a href="index.html#how-it-works" class="text-gray-300 hover:text-white transition-colors">How It Works</a></li>
+                        <li><a href="index.html#contact" class="text-gray-300 hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Contact Us</h3>
+                    <p class="text-gray-300">Email: support@agriconnect.com</p>
+                    <p class="text-gray-300">Phone: (555) 123-4567</p>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-300">&copy; 2024 AgriConnect. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bid Submission Modal -->
+    <div id="bidModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl mx-4">
+            <div class="flex justify-between items-center p-6 border-b border-gray-200">
+                <h2 class="text-2xl font-bold text-text">Submit Your Bid</h2>
+                <button class="text-gray-400 hover:text-gray-600 text-2xl leading-none">&times;</button>
+            </div>
+            
+            <form id="bidForm" class="p-6">
+                <div class="mb-8">
+                    <div class="flex justify-between relative after:content-[''] after:absolute after:w-full after:h-1 after:bg-gray-200 after:top-4 after:-z-10">
+                        <div class="flex flex-col items-center">
+                            <span class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center mb-2">1</span>
+                            <span class="text-sm text-primary font-medium">Details</span>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <span class="w-8 h-8 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center mb-2">2</span>
+                            <span class="text-sm text-gray-600">Preview</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="step1" class="space-y-6">
+                    <div>
+                        <label class="block text-text font-medium mb-2" for="bidAmount">Bid Amount</label>
+                        <div class="flex gap-2">
+                            <select id="bidCurrency" class="select w-24">
+                                <option value="USD">USD</option>
+                                <option value="ZWL">ZWL</option>
+                            </select>
+                            <input type="number" id="bidAmount" required min="0" step="0.01" class="input flex-1">
+                            <select id="bidType" class="select w-32">
+                                <option value="fixed">Fixed Price</option>
+                                <option value="per-day">Per Day</option>
+                                <option value="per-ton">Per Ton</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-text font-medium mb-2" for="availabilityDate">Available From</label>
+                        <input type="date" id="availabilityDate" required class="input">
+                    </div>
+
+                    <div>
+                        <label class="block text-text font-medium mb-2" for="completionTime">Estimated Completion Time</label>
+                        <div class="flex gap-2">
+                            <input type="number" id="completionTime" required min="1" class="input flex-1">
+                            <select id="timeUnit" class="select w-32">
+                                <option value="hours">Hours</option>
+                                <option value="days">Days</option>
+                                <option value="weeks">Weeks</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-text font-medium mb-2" for="proposal">Proposal Details</label>
+                        <textarea id="proposal" rows="4" class="input resize-none" placeholder="Describe your approach, experience, and any relevant qualifications..."></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-text font-medium mb-2" for="requirements">Additional Requirements</label>
+                        <textarea id="requirements" rows="3" class="input resize-none" placeholder="List any specific requirements or questions..."></textarea>
+                    </div>
+                </div>
+
+                <div class="flex justify-end gap-4 mt-8">
+                    <button type="button" class="btn-secondary">Cancel</button>
+                    <button type="button" class="btn-primary">Next: Preview</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Chat Interface -->
+    <div id="chatInterface" class="chat-interface">
+        <div class="chat-header">
+            <h3>
+                <i class="fas fa-comments"></i> 
+                Chat
+                <span class="notification-badge" id="chatNotification">2</span>
+            </h3>
+            <div class="chat-controls">
+                <button class="minimize-chat"><i class="fas fa-minus"></i></button>
+                <button class="close-chat"><i class="fas fa-times"></i></button>
+            </div>
+        </div>
+        <div class="chat-search-bar">
+            <div class="search-input">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search messages...">
+            </div>
+            <div id="searchControls" style="display: none;">
+                <button id="prevSearch" title="Previous match"><i class="fas fa-chevron-up"></i></button>
+                <button id="nextSearch" title="Next match"><i class="fas fa-chevron-down"></i></button>
+                <span id="searchStatus"></span>
+            </div>
+        </div>
+        <div class="chat-body">
+            <div class="chat-messages" id="chatMessages">
+                <!-- Messages will be dynamically added here -->
+            </div>
+            <div class="file-preview" id="filePreview">
+                <!-- File previews will appear here -->
+            </div>
+            <div class="chat-input">
+                <div class="input-actions">
+                    <button class="attach-file">
+                        <i class="fas fa-paperclip"></i>
+                        <input type="file" id="fileInput" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+                    </button>
+                    <textarea placeholder="Type your message..." rows="2"></textarea>
+                </div>
+                <div class="send-actions">
+                    <button class="send-message"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Message History Modal -->
+    <div id="messageHistoryModal" class="modal">
+        <div class="modal-content wide-modal">
+            <div class="modal-header">
+                <h2>Message History</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="message-history-container">
+                <div class="chat-list">
+                    <div class="chat-search">
+                        <input type="text" placeholder="Search conversations...">
+                    </div>
+                    <div class="chat-items" id="chatList">
+                        <!-- Chat items will be dynamically added here -->
+                    </div>
+                </div>
+                <div class="chat-details">
+                    <div class="chat-info">
+                        <h3 id="selectedChatTitle">Select a conversation</h3>
+                        <div class="chat-actions">
+                            <button class="archive-chat" title="Archive Chat">
+                                <i class="fas fa-archive"></i>
+                            </button>
+                            <button class="export-chat" title="Export Chat">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="message-container" id="messageHistory">
+                        <!-- Messages will be dynamically added here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Review Moderation Modal -->
+    <div id="reviewModerationModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Review Moderation</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="review-moderation-container">
+                <div class="moderation-filters">
+                    <select id="moderationStatus">
+                        <option value="pending">Pending Reviews</option>
+                        <option value="approved">Approved Reviews</option>
+                        <option value="rejected">Rejected Reviews</option>
+                    </select>
+                    <input type="text" placeholder="Search reviews...">
+                </div>
+                <div class="review-list" id="reviewList">
+                    <!-- Reviews will be dynamically added here -->
+                </div>
+                <div class="moderation-actions">
+                    <button class="approve-all-btn">Approve Selected</button>
+                    <button class="reject-all-btn">Reject Selected</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Work - AgriConnect</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="font-sans text-text">
+    <header>
+        <nav class="fixed top-0 w-full bg-white shadow-default z-50">
+            <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+                <div class="text-2xl font-bold text-primary">
+                    <h1><a href="index.html">AgriConnect</a></h1>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="index.html#services" class="nav-link">Services</a>
+                    <a href="post-job.html" class="nav-link">Post a Job</a>
+                    <a href="find-work.html" class="nav-link active">Find Work</a>
+                    <a href="index.html#about" class="nav-link">About</a>
+                </div>
+                <div class="hidden md:flex space-x-4">
+                    <button class="btn-secondary">Login</button>
+                    <button class="btn-primary">Sign Up</button>
+                </div>
+                <button class="md:hidden text-2xl" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="pt-24 pb-16 bg-gray-50">
+        <section class="container mx-auto px-4">
+            <div class="bg-white rounded-lg shadow-default p-6 mb-8">
+                <div class="space-y-6">
+                    <div class="flex flex-col md:flex-row gap-4">
+                        <div class="flex-1 relative">
+                            <input type="text" placeholder="Search jobs..." class="input pr-10">
+                            <button class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-primary">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="text-text-light">Currency:</span>
+                            <div class="flex rounded-md overflow-hidden border border-primary">
+                                <button class="px-4 py-2 bg-primary text-white" data-currency="USD">USD</button>
+                                <button class="px-4 py-2 hover:bg-gray-100" data-currency="ZWL">ZWL</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <select id="serviceFilter" class="select">
+                            <option value="">All Services</option>
+                            <option value="transport">Transportation</option>
+                            <option value="equipment">Equipment Rental</option>
+                            <option value="labor">Farm Labor</option>
+                            <option value="repair">Equipment Repair</option>
+                            <option value="irrigation">Irrigation Services</option>
+                            <option value="harvesting">Harvesting Services</option>
+                            <option value="storage">Storage Solutions</option>
+                            <option value="processing">Crop Processing</option>
+                            <option value="pest-control">Pest Control</option>
+                            <option value="consultancy">Agricultural Consultancy</option>
+                        </select>
+                        <select id="cropType" class="select">
+                            <option value="">All Crops</option>
+                            <option value="tobacco">Tobacco</option>
+                            <option value="maize">Maize</option>
+                            <option value="cotton">Cotton</option>
+                            <option value="wheat">Wheat</option>
+                            <option value="soybean">Soybean</option>
+                            <option value="sugarcane">Sugarcane</option>
+                            <option value="coffee">Coffee</option>
+                            <option value="tea">Tea</option>
+                            <option value="horticulture">Horticulture</option>
+                            <option value="groundnuts">Groundnuts</option>
+                        </select>
+                        <select id="locationFilter" class="select">
+                            <option value="">All Locations</option>
+                            <option value="mashonaland-central">Mashonaland Central</option>
+                            <option value="mashonaland-east">Mashonaland East</option>
+                            <option value="mashonaland-west">Mashonaland West</option>
+                            <option value="manicaland">Manicaland</option>
+                            <option value="midlands">Midlands</option>
+                            <option value="masvingo">Masvingo</option>
+                            <option value="matabeleland-north">Matabeleland North</option>
+                            <option value="matabeleland-south">Matabeleland South</option>
+                            <option value="harare">Harare</option>
+                            <option value="bulawayo">Bulawayo</option>
+                        </select>
+                        <select id="sortBy" class="select">
+                            <option value="recent">Most Recent</option>
+                            <option value="budget-high">Highest Budget</option>
+                            <option value="budget-low">Lowest Budget</option>
+                            <option value="deadline">Deadline</option>
+                            <option value="urgency">Urgency</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Example Job Cards -->
+                <div class="bg-white rounded-lg shadow-default p-6 hover:shadow-lg transition-shadow">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-semibold text-text">Maize Transportation Needed</h3>
+                        <div class="text-right">
+                            <div class="text-lg font-bold text-primary">$450</div>
+                            <div class="text-sm text-text-light">(ZWL 16,200)</div>
+                        </div>
+                    </div>
+                    <div class="flex gap-2 mb-4">
+                        <span class="px-2 py-1 bg-red-100 text-red-600 text-sm rounded-full">Urgent</span>
+                        <span class="px-2 py-1 bg-blue-100 text-blue-600 text-sm rounded-full">GMB Approved</span>
+                    </div>
+                    <div class="space-y-2 mb-4 text-text-light">
+                        <p class="flex items-center gap-2">
+                            <i class="fas fa-map-marker-alt text-primary"></i>
+                            From: Mazowe, To: Harare GMB
+                        </p>
+                        <p class="flex items-center gap-2">
+                            <i class="fas fa-calendar text-primary"></i>
+                            Start Date: Jan 30, 2024
+                        </p>
+                        <p class="flex items-center gap-2">
+                            <i class="fas fa-truck text-primary"></i>
+                            Service: Transportation
+                        </p>
+                        <p class="flex items-center gap-2">
+                            <i class="fas fa-star text-yellow-400"></i>
+                            Rating: 4.8/5 (24 reviews)
+                        </p>
+                    </div>
+                    <p class="text-text mb-6">Need transportation for 15 tons of maize from Mazowe farm to Harare GMB depot. Must have appropriate vehicle and grain handling experience.</p>
+                    <div class="flex flex-wrap gap-3">
+                        <button class="btn-primary flex-1">Submit Bid</button>
+                        <button class="btn-secondary flex-1">View Details</button>
+                        <button class="btn-secondary w-12" onclick="openChat('job123')">
+                            <i class="fas fa-comments"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-default p-6 hover:shadow-lg transition-shadow">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-semibold text-text">Cotton Harvesting Team Required</h3>
+                        <div class="text-right">
+                            <div class="text-lg font-bold text-primary">$30/day</div>
+                            <div class="text-sm text-text-light">(ZWL 1,080/day)</div>
+                        </div>
+                    </div>
+                    <div class="flex gap-2 mb-4">
+                        <span class="px-2 py-1 bg-green-100 text-green-600 text-sm rounded-full">Long Term</span>
+                        <span class="px-2 py-1 bg-purple-100 text-purple-600 text-sm rounded-full">Accommodation</span>
+                    </div>
+                    <div class="space-y-2 mb-4 text-text-light">
+                        <p class="flex items-center gap-2">
+                            <i class="fas fa-map-marker-alt text-primary"></i>
+                            Location: Gokwe, Midlands
+                        </p>
+                        <p class="flex items-center gap-2">
+                            <i class="fas fa-calendar text-primary"></i>
+                            Start Date: Feb 15, 2024
+                        </p>
+                        <p class="flex items-center gap-2">
+                            <i class="fas fa-users text-primary"></i>
+                            Service: Farm Labor
+                        </p>
+                    </div>
+                    <p class="text-text mb-6">Seeking experienced cotton pickers for the harvest season. Previous cotton handling experience preferred. Accommodation and meals provided. 3-month contract.</p>
+                    <div class="flex flex-wrap gap-3">
+                        <button class="btn-primary flex-1">Submit Bid</button>
+                        <button class="btn-secondary flex-1">View Details</button>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-default p-6 hover:shadow-lg transition-shadow">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-semibold text-text">Sugarcane Harvester Operator</h3>
+                        <div class="text-right">
+                            <div class="text-lg font-bold text-primary">$45/day</div>
+                            <div class="text-sm text-text-light">(ZWL 1,620/day)</div>
+                        </div>
+                    </div>
+                    <div class="flex gap-2 mb-4">
+                        <span class="px-2 py-1 bg-yellow-100 text-yellow-600 text-sm rounded-full">Skilled</span>
+                        <span class="px-2 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">Certificate Required</span>
+                    </div>
+                    <div class="space-y-2 mb-4 text-text-light">
+                        <p class="flex items-center gap-2">
+                            <i class="fas fa-map-marker-alt text-primary"></i>
+                            Location: Triangle, Masvingo
+                        </p>
+                        <p class="flex items-center gap-2">
+                            <i class="fas fa-calendar text-primary"></i>
+                            Start Date: Immediate
+                        </p>
+                        <p class="flex items-center gap-2">
+                            <i class="fas fa-tractor text-primary"></i>
+                            Service: Equipment Operation
+                        </p>
+                    </div>
+                    <p class="text-text mb-6">Experienced sugarcane harvester operator needed. Must have certification and minimum 2 years experience. Knowledge of Case IH equipment preferred.</p>
+                    <div class="flex flex-wrap gap-3">
+                        <button class="btn-primary flex-1">Submit Bid</button>
+                        <button class="btn-secondary flex-1">View Details</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-center mt-8 gap-2">
+                <button class="px-4 py-2 bg-primary text-white rounded-md">1</button>
+                <button class="px-4 py-2 hover:bg-gray-100 rounded-md">2</button>
+                <button class="px-4 py-2 hover:bg-gray-100 rounded-md">3</button>
+                <button class="px-4 py-2 hover:bg-gray-100 rounded-md flex items-center gap-1">
+                    Next <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white">
+        <div class="container mx-auto px-4 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">About AgriConnect</h3>
+                    <p class="text-gray-300">Connecting farmers with reliable service providers</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="index.html#services" class="text-gray-300 hover:text-white transition-colors">Services</a></li>
+                        <li><a href="index.html#how-it-works" class="text-gray-300 hover:text-white transition-colors">How It Works</a></li>
+                        <li><a href="index.html#contact" class="text-gray-300 hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Contact Us</h3>
+                    <p class="text-gray-300">Email: support@agriconnect.com</p>
+                    <p class="text-gray-300">Phone: (555) 123-4567</p>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-300">&copy; 2024 AgriConnect. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bid Submission Modal -->
+    <div id="bidModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl mx-4">
+            <div class="flex justify-between items-center p-6 border-b border-gray-200">
+                <h2 class="text-2xl font-bold text-text">Submit Your Bid</h2>
+                <button class="text-gray-400 hover:text-gray-600 text-2xl leading-none">&times;</button>
+            </div>
+            
+            <form id="bidForm" class="p-6">
+                <div class="mb-8">
+                    <div class="flex justify-between relative after:content-[''] after:absolute after:w-full after:h-1 after:bg-gray-200 after:top-4 after:-z-10">
+                        <div class="flex flex-col items-center">
+                            <span class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center mb-2">1</span>
+                            <span class="text-sm text-primary font-medium">Details</span>
+                        </div>
+                        <div class="flex flex-col items-center">
+                            <span class="w-8 h-8 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center mb-2">2</span>
+                            <span class="text-sm text-gray-600">Preview</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="step1" class="space-y-6">
+                    <div>
+                        <label class="block text-text font-medium mb-2" for="bidAmount">Bid Amount</label>
+                        <div class="flex gap-2">
+                            <select id="bidCurrency" class="select w-24">
+                                <option value="USD">USD</option>
+                                <option value="ZWL">ZWL</option>
+                            </select>
+                            <input type="number" id="bidAmount" required min="0" step="0.01" class="input flex-1">
+                            <select id="bidType" class="select w-32">
+                                <option value="fixed">Fixed Price</option>
+                                <option value="per-day">Per Day</option>
+                                <option value="per-ton">Per Ton</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-text font-medium mb-2" for="availabilityDate">Available From</label>
+                        <input type="date" id="availabilityDate" required class="input">
+                    </div>
+
+                    <div>
+                        <label class="block text-text font-medium mb-2" for="completionTime">Estimated Completion Time</label>
+                        <div class="flex gap-2">
+                            <input type="number" id="completionTime" required min="1" class="input flex-1">
+                            <select id="timeUnit" class="select w-32">
+                                <option value="hours">Hours</option>
+                                <option value="days">Days</option>
+                                <option value="weeks">Weeks</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-text font-medium mb-2" for="proposal">Proposal Details</label>
+                        <textarea id="proposal" rows="4" class="input resize-none" placeholder="Describe your approach, experience, and any relevant qualifications..."></textarea>
+                    </div>
+
+                    <div>
+                        <label class="block text-text font-medium mb-2" for="requirements">Additional Requirements</label>
+                        <textarea id="requirements" rows="3" class="input resize-none" placeholder="List any specific requirements or questions..."></textarea>
+                    </div>
+                </div>
+
+                <div class="flex justify-end gap-4 mt-8">
+                    <button type="button" class="btn-secondary">Cancel</button>
+                    <button type="button" class="btn-primary">Next: Preview</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Chat Interface -->
+    <div id="chatInterface" class="chat-interface">
+        <div class="chat-header">
+            <h3>
+                <i class="fas fa-comments"></i> 
+                Chat
+                <span class="notification-badge" id="chatNotification">2</span>
+            </h3>
+            <div class="chat-controls">
+                <button class="minimize-chat"><i class="fas fa-minus"></i></button>
+                <button class="close-chat"><i class="fas fa-times"></i></button>
+            </div>
+        </div>
+        <div class="chat-search-bar">
+            <div class="search-input">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search messages...">
+            </div>
+            <div id="searchControls" style="display: none;">
+                <button id="prevSearch" title="Previous match"><i class="fas fa-chevron-up"></i></button>
+                <button id="nextSearch" title="Next match"><i class="fas fa-chevron-down"></i></button>
+                <span id="searchStatus"></span>
+            </div>
+        </div>
+        <div class="chat-body">
+            <div class="chat-messages" id="chatMessages">
+                <!-- Messages will be dynamically added here -->
+            </div>
+            <div class="file-preview" id="filePreview">
+                <!-- File previews will appear here -->
+            </div>
+            <div class="chat-input">
+                <div class="input-actions">
+                    <button class="attach-file">
+                        <i class="fas fa-paperclip"></i>
+                        <input type="file" id="fileInput" multiple accept=".pdf,.doc,.docx,.jpg,.jpeg,.png">
+                    </button>
+                    <textarea placeholder="Type your message..." rows="2"></textarea>
+                </div>
+                <div class="send-actions">
+                    <button class="send-message"><i class="fas fa-paper-plane"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Message History Modal -->
+    <div id="messageHistoryModal" class="modal">
+        <div class="modal-content wide-modal">
+            <div class="modal-header">
+                <h2>Message History</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="message-history-container">
+                <div class="chat-list">
+                    <div class="chat-search">
+                        <input type="text" placeholder="Search conversations...">
+                    </div>
+                    <div class="chat-items" id="chatList">
+                        <!-- Chat items will be dynamically added here -->
+                    </div>
+                </div>
+                <div class="chat-details">
+                    <div class="chat-info">
+                        <h3 id="selectedChatTitle">Select a conversation</h3>
+                        <div class="chat-actions">
+                            <button class="archive-chat" title="Archive Chat">
+                                <i class="fas fa-archive"></i>
+                            </button>
+                            <button class="export-chat" title="Export Chat">
+                                <i class="fas fa-download"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="message-container" id="messageHistory">
+                        <!-- Messages will be dynamically added here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Review Moderation Modal -->
+    <div id="reviewModerationModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Review Moderation</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="review-moderation-container">
+                <div class="moderation-filters">
+                    <select id="moderationStatus">
+                        <option value="pending">Pending Reviews</option>
+                        <option value="approved">Approved Reviews</option>
+                        <option value="rejected">Rejected Reviews</option>
+                    </select>
+                    <input type="text" placeholder="Search reviews...">
+                </div>
+                <div class="review-list" id="reviewList">
+                    <!-- Reviews will be dynamically added here -->
+                </div>
+                <div class="moderation-actions">
+                    <button class="approve-all-btn">Approve Selected</button>
+                    <button class="reject-all-btn">Reject Selected</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+>>>>>>> 1d12cc19c4d3855a6b3534a8acfc9a5c99a896ea
+</html> 

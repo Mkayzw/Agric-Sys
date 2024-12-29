@@ -1,0 +1,76 @@
+<<<<<<< HEAD
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .btn {
+    @apply px-4 py-2 rounded-md font-medium transition-colors duration-300;
+  }
+  
+  .btn-primary {
+    @apply btn bg-primary text-white hover:bg-primary-dark;
+  }
+  
+  .btn-secondary {
+    @apply btn border-2 border-primary text-primary hover:bg-primary hover:text-white;
+  }
+  
+  .input {
+    @apply w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent;
+  }
+  
+  .select {
+    @apply input appearance-none bg-white cursor-pointer;
+  }
+  
+  .card {
+    @apply bg-white rounded-lg shadow-default p-6 transition-transform duration-300 hover:-translate-y-1;
+  }
+  
+  .nav-link {
+    @apply text-text hover:text-primary transition-colors duration-300;
+  }
+  
+  .nav-link.active {
+    @apply text-primary;
+  }
+=======
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .btn {
+    @apply px-4 py-2 rounded-md font-medium transition-colors duration-300;
+  }
+  
+  .btn-primary {
+    @apply btn bg-primary text-white hover:bg-primary-dark;
+  }
+  
+  .btn-secondary {
+    @apply btn border-2 border-primary text-primary hover:bg-primary hover:text-white;
+  }
+  
+  .input {
+    @apply w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent;
+  }
+  
+  .select {
+    @apply input appearance-none bg-white cursor-pointer;
+  }
+  
+  .card {
+    @apply bg-white rounded-lg shadow-default p-6 transition-transform duration-300 hover:-translate-y-1;
+  }
+  
+  .nav-link {
+    @apply text-text hover:text-primary transition-colors duration-300;
+  }
+  
+  .nav-link.active {
+    @apply text-primary;
+  }
+>>>>>>> 1d12cc19c4d3855a6b3534a8acfc9a5c99a896ea
+} 
