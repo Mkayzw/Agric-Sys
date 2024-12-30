@@ -1,179 +1,164 @@
 class JobInteractions {
     constructor() {
-        this.initialize();
-        this.jobCache = new Map();
+        this.bindEvents();
     }
 
-    initialize() {
-        this.setupJobCards();
-        this.setupBidModal();
-        this.setupFilters();
-    }
+    bindEvents() {
+        // Bind job card interactions using event delegation
+        document.addEventListener('click', (e) => {
+            const jobCard = e.target.closest('.job-card');
+            if (!jobCard) return;
 
-    setupJobCards() {
-        document.querySelectorAll('.job-card').forEach(card => {
-            const jobId = card.dataset.jobId;
+            const jobId = jobCard.dataset.jobId;
             if (!jobId) {
                 console.error('Job card missing jobId attribute');
                 return;
             }
-            
-            this.setupCardButtons(card, jobId);
-        });
 
-        // Add job-card class to cards that don't have it
-        document.querySelectorAll('.bg-white.rounded-lg:not(.job-card)').forEach(card => {
-            card.classList.add('job-card');
-            if (!card.dataset.jobId) {
-                card.dataset.jobId = 'job_' + Math.random().toString(36).substr(2, 9);
-            }
-            this.setupCardButtons(card, card.dataset.jobId);
-        });
-    }
-
-    setupCardButtons(card, jobId) {
-        // Bid button
-        card.querySelector('.bid-btn')?.addEventListener('click', async () => {
-            try {
-                const job = await this.getJobDetails(jobId);
-                this.openBidModal(job);
-            } catch (error) {
-                UIService.showMessage(error.message, 'error');
-            }
-        });
-        
-        // View details button
-        card.querySelector('.details-btn')?.addEventListener('click', () => {
-            this.viewJobDetails(jobId);
-        });
-        
-        // Chat button
-        card.querySelector('.chat-btn')?.addEventListener('click', () => {
-            this.openJobChat(jobId);
-        });
-    }
-
-    async getJobDetails(jobId) {
-        if (this.jobCache.has(jobId)) {
-            return this.jobCache.get(jobId);
-        }
-        
-        const job = await JobService.getJobById(jobId);
-        this.jobCache.set(jobId, job);
-        return job;
-    }
-
-    setupBidModal() {
-        const modal = document.getElementById('bidModal');
-        if (!modal) return;
-
-        const closeModal = () => {
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-            this.resetBidForm();
-        };
-
-        // Close button
-        modal.querySelector('button')?.addEventListener('click', closeModal);
-        
-        // Cancel button
-        modal.querySelector('.btn-secondary')?.addEventListener('click', closeModal);
-        
-        // Close on outside click
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) closeModal();
-        });
-
-        // Form submission
-        const form = modal.querySelector('form');
-        if (form) {
-            form.addEventListener('submit', async (e) => {
+            // Handle bid button click
+            if (e.target.matches('.bid-btn, .bid-btn *')) {
                 e.preventDefault();
-                await this.handleBidSubmit(form);
-            });
-        }
-    }
+                this.openBidModal(jobId);
+            }
 
-    async handleBidSubmit(form) {
-        const submitBtn = form.querySelector('button[type="submit"]');
-        const stopLoading = UIService.showLoading(submitBtn, 'Submitting...');
+            // Handle view details button click
+            if (e.target.matches('.details-btn, .details-btn *')) {
+                e.preventDefault();
+                this.viewJobDetails(jobId);
+            }
 
-        try {
-            const formData = new FormData(form);
-            const bidData = {
-                amount: parseFloat(formData.get('bidAmount')),
-                currency: formData.get('bidCurrency'),
-                proposal: formData.get('proposal'),
-                availabilityDate: formData.get('availabilityDate'),
-                completionTime: {
-                    value: parseInt(formData.get('completionTime')),
-                    unit: formData.get('timeUnit')
-                }
+            // Handle chat button click
+            if (e.target.matches('.chat-btn, .chat-btn *')) {
+                e.preventDefault();
+                this.openChat(jobId);
+            }
+        });
+
+        // Bind modal close events
+        const bidModal = document.getElementById('bidModal');
+        if (bidModal) {
+            // Close button
+            const closeBtn = bidModal.querySelector('.close-modal');
+            if (closeBtn) {
+                closeBtn.onclick = () => this.closeBidModal();
+            }
+
+            // Close on outside click
+            bidModal.onclick = (e) => {
+                if (e.target === bidModal) this.closeBidModal();
             };
 
-            await JobService.submitBid(this.currentJobId, bidData);
-            UIService.showMessage('Bid submitted successfully!', 'success');
-            this.closeBidModal();
-        } catch (error) {
-            UIService.showMessage(error.message, 'error');
-        } finally {
-            stopLoading();
+            // Handle bid form submission
+            const bidForm = document.getElementById('bidForm');
+            if (bidForm) {
+                bidForm.onsubmit = (e) => this.handleBidSubmit(e);
+            }
         }
+    }
+
+    viewJobDetails(jobId) {
+        if (!jobId) {
+            console.error('No job ID provided');
+            return;
+        }
+        window.location.href = `/job-details.html?jobId=${jobId}`;
     }
 
     openBidModal(jobId) {
+        if (!isLoggedIn()) {
+            sessionStorage.setItem('intendedDestination', `job-details.html?jobId=${jobId}`);
+            window.location.href = '/login.html';
+            return;
+        }
+
         const modal = document.getElementById('bidModal');
         if (!modal) return;
 
-        // Set the current job ID in the bidding manager
-        if (window.biddingManager) {
-            window.biddingManager.currentJobId = jobId;
+        // Store the job ID in the form
+        const bidForm = document.getElementById('bidForm');
+        if (bidForm) {
+            bidForm.dataset.jobId = jobId;
         }
 
         // Show modal
         modal.classList.remove('hidden');
         modal.classList.add('flex');
+    }
 
-        // Add close handlers
-        const closeBtn = modal.querySelector('button');
-        const cancelBtn = modal.querySelector('.btn-secondary');
-        
-        const closeModal = () => {
+    closeBidModal() {
+        const modal = document.getElementById('bidModal');
+        if (modal) {
             modal.classList.add('hidden');
             modal.classList.remove('flex');
-        };
 
-        closeBtn.onclick = closeModal;
-        cancelBtn.onclick = closeModal;
-        
-        // Close on outside click
-        modal.onclick = (e) => {
-            if (e.target === modal) closeModal();
-        };
+            // Reset form if exists
+            const bidForm = document.getElementById('bidForm');
+            if (bidForm) bidForm.reset();
+        }
     }
 
-    viewJobDetails(jobId) {
-        // For now, redirect to a job details page
-        window.location.href = `job-details.html?jobId=${jobId}`;
-    }
+    async handleBidSubmit(e) {
+        e.preventDefault();
 
-    openJobChat(jobId) {
-        if (!window.chatManager) {
-            console.error('Chat manager not initialized');
+        const form = e.target;
+        const jobId = form.dataset.jobId;
+        const submitButton = form.querySelector('button[type="submit"]');
+
+        if (!jobId) {
+            console.error('No job ID found in form');
             return;
         }
 
-        // Open chat using chat controls
-        if (window.chatControls) {
-            window.chatControls.openChat();
+        try {
+            submitButton.disabled = true;
+            submitButton.textContent = 'Submitting...';
+
+            const bidData = {
+                amount: parseFloat(document.getElementById('bidAmount').value),
+                currency: document.getElementById('bidCurrency').value,
+                type: document.getElementById('bidType').value,
+                availabilityDate: document.getElementById('availabilityDate').value,
+                completionTime: {
+                    value: parseInt(document.getElementById('completionTime').value),
+                    unit: document.getElementById('timeUnit').value
+                },
+                proposal: document.getElementById('proposal').value
+            };
+
+            await JobService.submitBid(jobId, bidData);
+            
+            // Show success message
+            alert('Bid submitted successfully!');
+            
+            // Close modal and reset form
+            this.closeBidModal();
+            
+            // Refresh job list if we're on the find work page
+            if (window.loadJobs) {
+                loadJobs();
+            }
+        } catch (error) {
+            console.error('Error submitting bid:', error);
+            alert(error.message || 'Failed to submit bid. Please try again.');
+        } finally {
+            submitButton.disabled = false;
+            submitButton.textContent = 'Submit Bid';
+        }
+    }
+
+    openChat(jobId) {
+        if (!isLoggedIn()) {
+            sessionStorage.setItem('intendedDestination', `job-details.html?jobId=${jobId}`);
+            window.location.href = '/login.html';
+            return;
         }
 
-        // Initialize chat for this job
-        window.chatManager.openChat(jobId);
+        // Implement chat functionality
+        console.log('Opening chat for job:', jobId);
     }
 }
 
-// Initialize when document is ready
+// Initialize job interactions when the DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    window.jobInteractions = new JobInteractions();
+    new JobInteractions();
 }); 

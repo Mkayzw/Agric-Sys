@@ -1,32 +1,33 @@
 class CurrencyService {
-    static async getExchangeRates() {
+    constructor() {
+        this.rates = {
+            USD: 1,
+            ZWL: 36.5 // Example rate, should be fetched from an API
+        };
+        this.baseUrl = 'https://api.exchangerate-api.com/v4/latest/USD';
+    }
+
+    async updateRates() {
         try {
-            const response = await fetch(`${config.API_URL}/exchange-rates`);
+            const response = await fetch(this.baseUrl);
             const data = await response.json();
-            if (!response.ok) throw new Error(data.message);
-            return data.rates;
+            this.rates = data.rates;
         } catch (error) {
-            console.error('Error fetching exchange rates:', error);
-            return { USD_ZWL: config.CURRENCY.EXCHANGE_RATE };
+            console.error('Error updating currency rates:', error);
         }
     }
 
-    static formatAmount(amount, fromCurrency, toCurrency) {
-        const rate = config.CURRENCY.EXCHANGE_RATE;
-        const value = fromCurrency === 'ZWL' ? amount / rate : amount * rate;
-        
-        return new Intl.NumberFormat('en-US', {
-            style: 'currency',
-            currency: toCurrency
-        }).format(toCurrency === 'ZWL' ? value : amount);
+    convert(amount, fromCurrency, toCurrency) {
+        const normalizedAmount = amount / this.rates[fromCurrency];
+        return normalizedAmount * this.rates[toCurrency];
     }
 
-    static convertAmount(amount, fromCurrency, toCurrency) {
-        if (fromCurrency === toCurrency) return amount;
-        return fromCurrency === 'ZWL' 
-            ? amount / config.CURRENCY.EXCHANGE_RATE 
-            : amount * config.CURRENCY.EXCHANGE_RATE;
+    formatCurrency(amount, currency) {
+        return new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: currency
+        }).format(amount);
     }
 }
 
-window.CurrencyService = CurrencyService; 
+window.CurrencyService = new CurrencyService(); 

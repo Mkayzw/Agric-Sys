@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Details - AgriConnect</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="font-sans text-text">
+    <header>
+        <nav class="fixed top-0 w-full bg-white shadow-default z-50">
+            <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+                <div class="text-2xl font-bold text-primary">
+                    <h1><a href="/">AgriConnect</a></h1>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="/" class="nav-link">Home</a>
+                    <a href="/services.html" class="nav-link">Services</a>
+                    <a href="/post-job.html" class="nav-link">Post a Job</a>
+                    <a href="/find-work.html" class="nav-link">Find Work</a>
+                    <a href="/about.html" class="nav-link">About</a>
+                </div>
+                <div class="hidden md:flex space-x-4">
+                    <div data-auth-show="logged-out">
+                        <a href="/login.html" class="btn-secondary">Login</a>
+                        <a href="/register.html" class="btn-primary">Sign Up</a>
+                    </div>
+                    <div data-auth-show="logged-in" class="flex items-center space-x-4">
+                        <a href="/dashboard.html" class="text-primary">
+                            <span data-user-info="firstName">User</span>
+                            <span data-user-info="lastName"></span>
+                        </a>
+                        <button data-action="logout" class="btn-secondary">Logout</button>
+                    </div>
+                </div>
+                <button class="md:hidden text-2xl" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="pt-24 pb-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <!-- Job Details Section -->
+                <div class="bg-white rounded-lg shadow-lg p-6 mb-8">
+                    <div id="jobDetails" class="animate-pulse">
+                        <div class="h-8 bg-gray-200 rounded w-3/4 mb-4"></div>
+                        <div class="h-4 bg-gray-200 rounded w-1/4 mb-6"></div>
+                        <div class="space-y-3">
+                            <div class="h-4 bg-gray-200 rounded w-full"></div>
+                            <div class="h-4 bg-gray-200 rounded w-full"></div>
+                            <div class="h-4 bg-gray-200 rounded w-2/3"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bid Section -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Bid Form -->
+                    <div class="md:col-span-2">
+                        <div class="bg-white rounded-lg shadow-lg p-6">
+                            <h2 class="text-2xl font-bold mb-6">Submit Your Bid</h2>
+                            <form id="bidForm" class="space-y-6">
+                                <div>
+                                    <label class="block text-text font-medium mb-2" for="bidAmount">Bid Amount</label>
+                                    <div class="flex gap-2">
+                                        <select id="bidCurrency" class="select w-24">
+                                            <option value="USD">USD</option>
+                                            <option value="ZWL">ZWL</option>
+                                        </select>
+                                        <input type="number" id="bidAmount" required min="0" step="0.01" class="input flex-1">
+                                        <select id="bidType" class="select w-32">
+                                            <option value="fixed">Fixed Price</option>
+                                            <option value="per-day">Per Day</option>
+                                            <option value="per-ton">Per Ton</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-text font-medium mb-2" for="availabilityDate">Available From</label>
+                                    <input type="date" id="availabilityDate" required class="input">
+                                </div>
+
+                                <div>
+                                    <label class="block text-text font-medium mb-2" for="completionTime">Estimated Completion Time</label>
+                                    <div class="flex gap-2">
+                                        <input type="number" id="completionTime" required min="1" class="input flex-1">
+                                        <select id="timeUnit" class="select w-32">
+                                            <option value="hours">Hours</option>
+                                            <option value="days">Days</option>
+                                            <option value="weeks">Weeks</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-text font-medium mb-2" for="proposal">Proposal Details</label>
+                                    <textarea id="proposal" rows="4" required class="input resize-none" 
+                                            placeholder="Describe your approach, experience, and any relevant qualifications..."></textarea>
+                                </div>
+
+                                <button type="submit" class="btn-primary w-full">Submit Bid</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Job Stats -->
+                    <div>
+                        <div class="bg-white rounded-lg shadow-lg p-6">
+                            <h2 class="text-xl font-bold mb-4">Job Statistics</h2>
+                            <div class="space-y-4">
+                                <div>
+                                    <p class="text-text-light">Total Bids</p>
+                                    <p class="text-2xl font-bold text-primary"><span id="totalBids">0</span></p>
+                                </div>
+                                <div>
+                                    <p class="text-text-light">Average Bid</p>
+                                    <p class="text-2xl font-bold text-primary">$<span id="avgBid">0</span></p>
+                                </div>
+                                <div>
+                                    <p class="text-text-light">Time Remaining</p>
+                                    <p class="text-2xl font-bold text-primary"><span id="timeRemaining">--</span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 text-white">
+        <div class="container mx-auto px-4 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">About AgriConnect</h3>
+                    <p class="text-gray-300">Connecting farmers with reliable service providers</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/services.html" class="text-gray-300 hover:text-white transition-colors">Services</a></li>
+                        <li><a href="/how-it-works.html" class="text-gray-300 hover:text-white transition-colors">How It Works</a></li>
+                        <li><a href="/contact.html" class="text-gray-300 hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Contact Us</h3>
+                    <p class="text-gray-300">Email: mkaytech1@gmail.com</p>
+                    <p class="text-gray-300">Phone: +263 772 222 222</p>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-300">&copy; 2024 AgriConnect. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/config.js"></script>
+    <script src="js/services/auth-service.js"></script>
+    <script src="js/services/job-service.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Get job ID from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const jobId = urlParams.get('jobId');
+            
+            if (!jobId) {
+                window.location.href = '/find-work.html';
+                return;
+            }
+
+            const jobDetails = document.getElementById('jobDetails');
+            const bidForm = document.getElementById('bidForm');
+
+            try {
+                // Fetch job details
+                const job = await JobService.getJobById(jobId);
+                
+                // Update job details section
+                jobDetails.classList.remove('animate-pulse');
+                jobDetails.innerHTML = `
+                    <div class="flex justify-between items-start mb-6">
+                        <div>
+                            <h1 class="text-3xl font-bold mb-2">${job.title}</h1>
+                            <div class="flex gap-2">
+                                <span class="px-2 py-1 bg-primary-light text-primary text-sm rounded-full">${job.serviceType}</span>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-2xl font-bold text-primary">${job.budget.currency} ${job.budget.amount}</div>
+                            <div class="text-sm text-text-light">Posted ${new Date(job.createdAt).toLocaleDateString()}</div>
+                        </div>
+                    </div>
+                    <div class="prose max-w-none mb-6">
+                        ${job.description}
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <p class="text-text-light">Location</p>
+                            <p class="font-medium">From: ${job.pickupLocation}</p>
+                            <p class="font-medium">To: ${job.deliveryLocation}</p>
+                        </div>
+                        <div>
+                            <p class="text-text-light">Start Date</p>
+                            <p class="font-medium">${new Date(job.startDate).toLocaleDateString()}</p>
+                        </div>
+                    </div>
+                    ${job.requirements ? `
+                        <div class="mt-6">
+                            <p class="text-text-light">Requirements</p>
+                            <p class="font-medium">${job.requirements}</p>
+                        </div>
+                    ` : ''}
+                `;
+
+                // Set up bid form
+                if (bidForm) {
+                    bidForm.dataset.jobId = jobId;
+
+                    // Set minimum date for availability to today
+                    const availabilityDate = document.getElementById('availabilityDate');
+                    const today = new Date().toISOString().split('T')[0];
+                    availabilityDate.min = today;
+
+                    // Handle bid form submission
+                    bidForm.addEventListener('submit', async (e) => {
+                        e.preventDefault();
+
+                        if (!isLoggedIn()) {
+                            sessionStorage.setItem('intendedDestination', `job-details.html?jobId=${jobId}`);
+                            window.location.href = '/login.html';
+                            return;
+                        }
+
+                        const submitButton = bidForm.querySelector('button[type="submit"]');
+                        submitButton.disabled = true;
+                        submitButton.textContent = 'Submitting...';
+
+                        try {
+                            const bidData = {
+                                amount: parseFloat(document.getElementById('bidAmount').value),
+                                currency: document.getElementById('bidCurrency').value,
+                                type: document.getElementById('bidType').value,
+                                availabilityDate: document.getElementById('availabilityDate').value,
+                                completionTime: {
+                                    value: parseInt(document.getElementById('completionTime').value),
+                                    unit: document.getElementById('timeUnit').value
+                                },
+                                proposal: document.getElementById('proposal').value
+                            };
+
+                            await JobService.submitBid(jobId, bidData);
+                            alert('Bid submitted successfully!');
+                            bidForm.reset();
+
+                            // Refresh bid statistics
+                            await updateBidStats(jobId);
+                        } catch (error) {
+                            console.error('Error submitting bid:', error);
+                            alert(error.message || 'Failed to submit bid. Please try again.');
+                        } finally {
+                            submitButton.disabled = false;
+                            submitButton.textContent = 'Submit Bid';
+                        }
+                    });
+                }
+
+                // Update bid statistics
+                await updateBidStats(jobId);
+
+            } catch (error) {
+                console.error('Error loading job details:', error);
+                jobDetails.classList.remove('animate-pulse');
+                jobDetails.innerHTML = `
+                    <div class="text-center py-8">
+                        <i class="fas fa-exclamation-circle text-4xl text-red-500 mb-4"></i>
+                        <h2 class="text-xl font-bold mb-2">Failed to load job details</h2>
+                        <p class="text-text-light mb-4">Please try again later</p>
+                        <a href="/find-work.html" class="btn-primary">Back to Jobs</a>
+                    </div>
+                `;
+            }
+        });
+
+        async function updateBidStats(jobId) {
+            try {
+                const bids = await JobService.getBids(jobId);
+                if (bids.length > 0) {
+                    const avgBid = bids.reduce((sum, bid) => sum + bid.amount, 0) / bids.length;
+                    document.getElementById('avgBid').textContent = avgBid.toFixed(2);
+                    document.getElementById('totalBids').textContent = bids.length;
+                }
+            } catch (error) {
+                console.error('Error updating bid stats:', error);
+            }
+        }
+    </script>
+</body>
+</html> 

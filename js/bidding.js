@@ -4,6 +4,53 @@ class BiddingManager {
         this.currentJobId = null;
         this.API_URL = config.API_URL;
         this.onBidUpdate = null;
+        this.initialize();
+    }
+
+    initialize() {
+        // Set up bid button click handlers
+        document.querySelectorAll('.bid-btn').forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                const jobCard = button.closest('.job-card');
+                if (jobCard) {
+                    this.currentJobId = jobCard.dataset.jobId;
+                    this.showBidModal();
+                }
+            });
+        });
+
+        // Set up bid modal close handlers
+        const bidModal = document.getElementById('bidModal');
+        if (bidModal) {
+            // Close button
+            bidModal.querySelector('button').addEventListener('click', () => this.closeBidModal());
+            // Cancel button
+            bidModal.querySelector('.btn-secondary')?.addEventListener('click', () => this.closeBidModal());
+            // Click outside modal
+            bidModal.addEventListener('click', (e) => {
+                if (e.target === bidModal) this.closeBidModal();
+            });
+        }
+    }
+
+    showBidModal() {
+        const bidModal = document.getElementById('bidModal');
+        if (bidModal) {
+            bidModal.classList.remove('hidden');
+            bidModal.classList.add('flex');
+        }
+    }
+
+    closeBidModal() {
+        const bidModal = document.getElementById('bidModal');
+        if (bidModal) {
+            bidModal.classList.add('hidden');
+            bidModal.classList.remove('flex');
+            // Reset form if exists
+            const bidForm = document.getElementById('bidForm');
+            if (bidForm) bidForm.reset();
+        }
     }
 
     async submitBid(amount, proposal) {
@@ -128,4 +175,30 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (document.getElementById('bidForm')) {
         window.biddingUI = new BiddingUI(biddingManager);
     }
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    const bidForm = document.getElementById('bidForm');
+    const bidAmount = document.getElementById('bidAmount');
+    const bidCurrency = document.getElementById('bidCurrency');
+    const bidType = document.getElementById('bidType');
+
+    bidForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const jobId = bidForm.dataset.jobId;
+        const bidData = {
+            amount: parseFloat(bidAmount.value),
+            currency: bidCurrency.value,
+            type: bidType.value
+        };
+
+        try {
+            await BiddingService.submitBid(jobId, bidData);
+            alert('Bid submitted successfully!');
+            // Close bid modal or update UI
+        } catch (error) {
+            alert('Failed to submit bid. Please try again.');
+        }
+    });
 }); 
