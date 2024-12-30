@@ -1,0 +1,11 @@
+{
+  "name": "agriconnect-functions",
+  "version": "1.0.0",
+  "description": "AgriConnect Netlify Functions",
+  "main": "auth.js",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "jsonwebtoken": "^9.0.0",
+    "mongodb": "^5.0.0"
+  }
+} 

@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up - AgriConnect</title>
     <link rel="icon" type="image/png" href="images/favicon.png">
-    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
-    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -15,18 +13,20 @@
         <nav class="fixed top-0 w-full bg-white shadow-default z-50">
             <div class="container mx-auto px-4 py-4 flex justify-between items-center">
                 <div class="text-2xl font-bold text-primary">
-                    <h1><a href="./index.html">AgriConnect</a></h1>
+                    <h1><a href="/">AgriConnect</a></h1>
                 </div>
                 <div class="hidden md:flex space-x-8">
-                    <a href="./index.html" class="nav-link">Home</a>
-                    <a href="./index.html#services" class="nav-link">Services</a>
-                    <a href="./post-job.html" class="nav-link">Post a Job</a>
-                    <a href="./find-work.html" class="nav-link">Find Work</a>
-                    <a href="./index.html#about" class="nav-link">About</a>
+                    <a href="/" class="nav-link">Home</a>
+                    <a href="/services.html" class="nav-link">Services</a>
+                    <a href="/post-job.html" class="nav-link" data-auth-show="logged-in">Post a Job</a>
+                    <a href="/find-work.html" class="nav-link" data-auth-show="logged-in">Find Work</a>
+                    <a href="/about.html" class="nav-link">About</a>
                 </div>
                 <div class="hidden md:flex space-x-4">
-                    <button onclick="window.location.href='./login.html'" class="btn-secondary">Login</button>
-                    <button onclick="window.location.href='./register.html'" class="btn-primary">Sign Up</button>
+                    <div data-auth-show="logged-out">
+                        <a href="/login.html" class="btn-secondary">Login</a>
+                        <a href="/register.html" class="btn-primary">Sign Up</a>
+                    </div>
                 </div>
                 <button class="md:hidden text-2xl" id="menuToggle">
                     <i class="fas fa-bars"></i>
@@ -37,76 +37,79 @@
 
     <main class="pt-24 pb-16 bg-gray-50 min-h-screen">
         <section class="container mx-auto px-4">
-            <div class="max-w-md mx-auto bg-white rounded-lg shadow-default p-8">
-                <h1 class="text-3xl font-bold text-text mb-2">Create Account</h1>
-                <p class="text-text-light mb-8">Join AgriConnect and start connecting with agricultural services.</p>
+            <div class="max-w-2xl mx-auto bg-white rounded-lg shadow-default p-8">
+                <h1 class="text-3xl font-bold text-text mb-2">Create an Account</h1>
+                <p class="text-text-light mb-8">Join AgriConnect and start connecting with agricultural service providers.</p>
                 
                 <form id="registerForm" class="space-y-6">
-                    <div class="grid grid-cols-2 gap-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label for="firstName" class="block text-text font-medium mb-2">First Name</label>
                             <input type="text" id="firstName" name="firstName" required 
-                                   placeholder="Enter first name"
+                                   placeholder="Enter your first name"
                                    class="input">
                         </div>
                         <div>
                             <label for="lastName" class="block text-text font-medium mb-2">Last Name</label>
                             <input type="text" id="lastName" name="lastName" required 
-                                   placeholder="Enter last name"
+                                   placeholder="Enter your last name"
                                    class="input">
                         </div>
                     </div>
 
                     <div>
-                        <label for="email" class="block text-text font-medium mb-2">Email</label>
+                        <label for="email" class="block text-text font-medium mb-2">Email Address</label>
                         <input type="email" id="email" name="email" required 
                                placeholder="Enter your email"
                                class="input">
                     </div>
 
                     <div>
-                        <label for="password" class="block text-text font-medium mb-2">Password</label>
-                        <input type="password" id="password" name="password" required 
-                               placeholder="Create a password"
+                        <label for="phone" class="block text-text font-medium mb-2">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required 
+                               placeholder="Enter your phone number"
                                class="input">
+                    </div>
+
+                    <div>
+                        <label for="userType" class="block text-text font-medium mb-2">I am a...</label>
+                        <select id="userType" name="userType" required class="input">
+                            <option value="">Select your role</option>
+                            <option value="farmer">Farmer</option>
+                            <option value="provider">Service Provider</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="password" class="block text-text font-medium mb-2">Password</label>
+                        <div class="relative">
+                            <input type="password" id="password" name="password" required 
+                                   placeholder="Create a password"
+                                   class="input">
+                            <button type="button" id="togglePassword" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
                         <p class="text-sm text-text-light mt-1">Must be at least 8 characters long</p>
                     </div>
 
                     <div>
                         <label for="confirmPassword" class="block text-text font-medium mb-2">Confirm Password</label>
-                        <input type="password" id="confirmPassword" name="confirmPassword" required 
-                               placeholder="Confirm your password"
-                               class="input">
+                        <div class="relative">
+                            <input type="password" id="confirmPassword" name="confirmPassword" required 
+                                   placeholder="Confirm your password"
+                                   class="input">
+                            <button type="button" id="toggleConfirmPassword" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
                     </div>
 
-                    <div>
-                        <label for="role" class="block text-text font-medium mb-2">I want to</label>
-                        <select id="role" name="role" required class="select">
-                            <option value="">Select your role</option>
-                            <option value="farmer">Hire Services (Farmer)</option>
-                            <option value="service_provider">Provide Services (Service Provider)</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label for="phoneNumber" class="block text-text font-medium mb-2">Phone Number</label>
-                        <input type="tel" id="phoneNumber" name="phoneNumber" required 
-                               placeholder="Enter phone number"
-                               class="input">
-                    </div>
-
-                    <div>
-                        <label for="location" class="block text-text font-medium mb-2">Location</label>
-                        <input type="text" id="location" name="location" required 
-                               placeholder="Enter your location"
-                               class="input">
-                    </div>
-
-                    <div class="flex items-center">
-                        <input type="checkbox" id="terms" name="terms" required class="h-4 w-4 text-primary">
+                    <div class="flex items-start">
+                        <input type="checkbox" id="terms" name="terms" required class="mt-1 h-4 w-4 text-primary">
                         <label for="terms" class="ml-2 text-sm text-text-light">
-                            I agree to the <a href="./terms.html" class="text-primary hover:text-primary-dark">Terms of Service</a> and 
-                            <a href="./privacy.html" class="text-primary hover:text-primary-dark">Privacy Policy</a>
+                            I agree to the <a href="/terms.html" class="text-primary hover:text-primary-dark">Terms of Service</a> and 
+                            <a href="/privacy.html" class="text-primary hover:text-primary-dark">Privacy Policy</a>
                         </label>
                     </div>
 
@@ -114,14 +117,82 @@
 
                     <p class="text-center text-text-light">
                         Already have an account? 
-                        <a href="./login.html" class="text-primary hover:text-primary-dark">Login</a>
+                        <a href="/login.html" class="text-primary hover:text-primary-dark">Login</a>
                     </p>
                 </form>
             </div>
         </section>
     </main>
 
-    <script src="js/auth.js"></script>
-    <script src="js/register.js"></script>
+    <footer class="bg-gray-800 text-white">
+        <div class="container mx-auto px-4 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">About AgriConnect</h3>
+                    <p class="text-gray-300">Connecting farmers with reliable service providers</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/services.html" class="text-gray-300 hover:text-white transition-colors">Services</a></li>
+                        <li><a href="/how-it-works.html" class="text-gray-300 hover:text-white transition-colors">How It Works</a></li>
+                        <li><a href="/contact.html" class="text-gray-300 hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Contact Us</h3>
+                    <p class="text-gray-300">Email: support@agriconnect.com</p>
+                    <p class="text-gray-300">Phone: (555) 123-4567</p>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-300">&copy; 2024 AgriConnect. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/js/main.js"></script>
+    <script src="/js/auth.js"></script>
+    <script>
+        // Toggle password visibility
+        function setupPasswordToggle(inputId, toggleId) {
+            const input = document.getElementById(inputId);
+            const toggle = document.getElementById(toggleId);
+
+            toggle.addEventListener('click', () => {
+                const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+                input.setAttribute('type', type);
+                toggle.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+            });
+        }
+
+        setupPasswordToggle('password', 'togglePassword');
+        setupPasswordToggle('confirmPassword', 'toggleConfirmPassword');
+
+        // Handle registration form submission
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const data = Object.fromEntries(formData.entries());
+
+            // Validate passwords match
+            if (data.password !== data.confirmPassword) {
+                alert('Passwords do not match');
+                return;
+            }
+
+            // Remove confirmPassword from data
+            delete data.confirmPassword;
+
+            try {
+                const { token, user } = await AuthService.register(data);
+                // Redirect to dashboard on successful registration
+                window.location.href = '/dashboard.html';
+            } catch (error) {
+                alert(error.message || 'Registration failed. Please try again.');
+                console.error('Registration error:', error);
+            }
+        });
+    </script>
 </body>
 </html> 

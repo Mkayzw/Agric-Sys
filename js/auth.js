@@ -1,107 +1,122 @@
-const API_URL = 'http://localhost:5000/api';
+class AuthService {
+    static API_URL = '/.netlify/functions';
+    static TOKEN_KEY = 'token';
+    static USER_KEY = 'user';
 
-// Function to check if user is logged in
-function isLoggedIn() {
-    return localStorage.getItem('token') !== null;
-}
+    static async login(email, password) {
+        try {
+            const response = await fetch(`${this.API_URL}/auth/login`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password }),
+            });
 
-// Function to get current user
-async function getCurrentUser() {
-    const token = localStorage.getItem('token');
-    if (!token) return null;
-
-    try {
-        const response = await fetch(`${API_URL}/auth/me`, {
-            headers: {
-                'Authorization': `Bearer ${token}`
+            if (!response.ok) {
+                const error = await response.json();
+                throw new Error(error.message || 'Login failed');
             }
-        });
-        if (!response.ok) throw new Error('Failed to get user');
-        const data = await response.json();
-        return data.data;
-    } catch (error) {
-        console.error('Error getting user:', error);
-        return null;
-    }
-}
 
-// Function to handle login
-async function login(email, password) {
-    try {
-        const response = await fetch(`${API_URL}/auth/login`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ email, password })
-        });
-
-        const data = await response.json();
-
-        if (!response.ok) {
-            throw new Error(data.message || 'Login failed');
+            const { token, user } = await response.json();
+            this.setToken(token);
+            this.setUser(user);
+            return { token, user };
+        } catch (error) {
+            console.error('Login error:', error);
+            throw error;
         }
+    }
 
-        // Store token and user data
-        localStorage.setItem('token', data.data.token);
-        localStorage.setItem('user', JSON.stringify(data.data.user));
+    static async register(userData) {
+        try {
+            const response = await fetch(`${this.API_URL}/auth/register`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(userData),
+            });
 
-        return data.data;
-    } catch (error) {
-        throw error;
+            if (!response.ok) {
+                const error = await response.json();
+                throw new Error(error.message || 'Registration failed');
+            }
+
+            const { token, user } = await response.json();
+            this.setToken(token);
+            this.setUser(user);
+            return { token, user };
+        } catch (error) {
+            console.error('Registration error:', error);
+            throw error;
+        }
+    }
+
+    static logout() {
+        this.clearSession();
+        window.location.href = '/';
+    }
+
+    // Session management
+    static setToken(token) {
+        localStorage.setItem(this.TOKEN_KEY, token);
+    }
+
+    static getToken() {
+        return localStorage.getItem(this.TOKEN_KEY);
+    }
+
+    static setUser(user) {
+        localStorage.setItem(this.USER_KEY, JSON.stringify(user));
+    }
+
+    static getUser() {
+        const user = localStorage.getItem(this.USER_KEY);
+        return user ? JSON.parse(user) : null;
+    }
+
+    static clearSession() {
+        localStorage.removeItem(this.TOKEN_KEY);
+        localStorage.removeItem(this.USER_KEY);
+    }
+
+    static isLoggedIn() {
+        return !!this.getToken();
+    }
+
+    // UI updates
+    static updateUI() {
+        const isLoggedIn = this.isLoggedIn();
+        const user = this.getUser();
+
+        document.querySelectorAll('[data-auth-show]').forEach(element => {
+            const showWhen = element.dataset.authShow;
+            element.style.display = 
+                (showWhen === 'logged-in' && isLoggedIn) || 
+                (showWhen === 'logged-out' && !isLoggedIn) 
+                    ? '' 
+                    : 'none';
+        });
+
+        if (isLoggedIn && user) {
+            document.querySelectorAll('[data-user-info]').forEach(element => {
+                const field = element.dataset.userInfo;
+                if (user[field]) {
+                    element.textContent = user[field];
+                }
+            });
+        }
+    }
+
+    static init() {
+        this.updateUI();
+        document.querySelectorAll('[data-action="logout"]').forEach(element => {
+            element.addEventListener('click', (e) => {
+                e.preventDefault();
+                this.logout();
+            });
+        });
     }
 }
 
-// Function to handle logout
-function logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    window.location.href = 'index.html';
-}
-
-// Function to update UI based on auth state
-function updateAuthUI() {
-    const loginBtn = document.querySelector('.btn-secondary');
-    const signupBtn = document.querySelector('.btn-primary');
-    
-    if (!loginBtn || !signupBtn) return; // Exit if buttons don't exist
-    
-    const user = JSON.parse(localStorage.getItem('user'));
-
-    if (isLoggedIn() && user) {
-        loginBtn.textContent = user.firstName;
-        signupBtn.textContent = 'Logout';
-        signupBtn.onclick = logout;
-    } else {
-        loginBtn.textContent = 'Login';
-        signupBtn.textContent = 'Sign Up';
-        
-        // Add click event listeners
-        loginBtn.onclick = (e) => {
-            e.preventDefault();
-            window.location.href = 'login.html';
-        };
-        signupBtn.onclick = (e) => {
-            e.preventDefault();
-            window.location.href = 'register.html';
-        };
-    }
-}
-
-// Function to handle navigation
-function handleNavigation(path) {
-    window.location.href = path;
-}
-
-// Update UI when page loads
+// Initialize authentication on page load
 document.addEventListener('DOMContentLoaded', () => {
-    updateAuthUI();
-    
-    // Add click handlers to all navigation buttons
-    document.querySelectorAll('a[href="register.html"]').forEach(link => {
-        link.onclick = (e) => {
-            e.preventDefault();
-            handleNavigation('register.html');
-        };
-    });
+    AuthService.init();
 }); 

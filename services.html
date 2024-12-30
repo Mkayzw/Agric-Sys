@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services - AgriConnect</title>
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="font-sans text-text">
+    <header>
+        <nav class="fixed top-0 w-full bg-white shadow-default z-50">
+            <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+                <div class="text-2xl font-bold text-primary">
+                    <h1><a href="/">AgriConnect</a></h1>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="/" class="nav-link">Home</a>
+                    <a href="/services.html" class="nav-link">Services</a>
+                    <a href="/post-job.html" class="nav-link">Post a Job</a>
+                    <a href="/find-work.html" class="nav-link">Find Work</a>
+                    <a href="/about.html" class="nav-link">About</a>
+                </div>
+                <div class="hidden md:flex space-x-4">
+                    <a href="/login.html" class="btn-secondary">Login</a>
+                    <a href="/register.html" class="btn-primary">Sign Up</a>
+                </div>
+                <button class="md:hidden text-2xl" id="menuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="pt-24">
+        <section class="py-12 bg-gradient-to-br from-white to-gray-100">
+            <div class="container mx-auto px-4">
+                <h1 class="text-4xl font-bold text-center mb-12">Our Services</h1>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <div class="text-primary text-3xl mb-4">
+                            <i class="fas fa-tractor"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3">Farm Equipment Rental</h3>
+                        <p class="text-gray-600 mb-4">Access modern farming equipment for rent, including tractors, harvesters, and specialized tools.</p>
+                        <a href="/post-job.html" class="text-primary hover:text-primary-dark">Post Equipment Need →</a>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <div class="text-primary text-3xl mb-4">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3">Transportation Services</h3>
+                        <p class="text-gray-600 mb-4">Reliable transportation for your crops, livestock, and agricultural supplies.</p>
+                        <a href="/post-job.html" class="text-primary hover:text-primary-dark">Request Transport →</a>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <div class="text-primary text-3xl mb-4">
+                            <i class="fas fa-warehouse"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3">Storage Solutions</h3>
+                        <p class="text-gray-600 mb-4">Secure storage facilities for grains, produce, and agricultural products.</p>
+                        <a href="/post-job.html" class="text-primary hover:text-primary-dark">Find Storage →</a>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <div class="text-primary text-3xl mb-4">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3">Crop Management</h3>
+                        <p class="text-gray-600 mb-4">Expert services for planting, harvesting, and crop maintenance.</p>
+                        <a href="/post-job.html" class="text-primary hover:text-primary-dark">Get Help →</a>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <div class="text-primary text-3xl mb-4">
+                            <i class="fas fa-hand-holding-water"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3">Irrigation Services</h3>
+                        <p class="text-gray-600 mb-4">Installation and maintenance of irrigation systems for optimal crop growth.</p>
+                        <a href="/post-job.html" class="text-primary hover:text-primary-dark">Book Service →</a>
+                    </div>
+
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <div class="text-primary text-3xl mb-4">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3">Labor Services</h3>
+                        <p class="text-gray-600 mb-4">Connect with skilled agricultural workers for seasonal or permanent work.</p>
+                        <a href="/post-job.html" class="text-primary hover:text-primary-dark">Find Workers →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-12 bg-gray-50">
+            <div class="container mx-auto px-4 text-center">
+                <h2 class="text-3xl font-bold mb-6">Ready to Get Started?</h2>
+                <p class="text-xl text-gray-600 mb-8">Post your service needs or find work opportunities today</p>
+                <div class="flex flex-col md:flex-row gap-4 justify-center">
+                    <a href="/post-job.html" class="btn-primary">Post a Job</a>
+                    <a href="/find-work.html" class="btn-secondary">Find Work</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white">
+        <div class="container mx-auto px-4 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">About AgriConnect</h3>
+                    <p class="text-gray-300">Connecting farmers with reliable service providers</p>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="/services.html" class="text-gray-300 hover:text-white transition-colors">Services</a></li>
+                        <li><a href="/how-it-works.html" class="text-gray-300 hover:text-white transition-colors">How It Works</a></li>
+                        <li><a href="/contact.html" class="text-gray-300 hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Contact Us</h3>
+                    <p class="text-gray-300">Email: support@agriconnect.com</p>
+                    <p class="text-gray-300">Phone: (555) 123-4567</p>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-300">&copy; 2024 AgriConnect. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/js/main.js"></script>
+    <script src="/js/auth.js"></script>
+</body>
+</html> 
